@@ -64,6 +64,9 @@ Triforce_HC_2019_Java.iml
 *.out
 *.app
 
+# custom
+progcpp
+
 ## Python gitignore
 
 # Byte-compiled / optimized / DLL files
