@@ -1,13 +1,16 @@
+package Djikstra;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.LinkedList;
 
 public class Djikstra {
 
-    // g est le graphe où l'indice du tableau est l'id du noeud, et le contenu à
-    // l'indice i sont les arêtes sortantes de i de la forme
-    // [ {id de l'autre noeud}, {poids de l'arête} ]
-    // src est le noeud source
+    /**
+     * @param g tableau de liste de tuple d'Integer (liste d'adjacence de [i,j] avec i = id du noeud suivant, j le poids de l'arête)
+     * @param src noeud source
+     * @return [ {tableau distance}, {tableau des parents id} ]
+     */
     public static Integer[][] make(LinkedList<int[]>[] g, int src) {
 
         // initialisation
