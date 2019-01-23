@@ -1,3 +1,5 @@
+package Bellman_Ford;
+
 import java.util.LinkedList;
 
 public class BF {
