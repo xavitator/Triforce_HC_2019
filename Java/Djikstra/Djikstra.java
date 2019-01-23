@@ -1,12 +1,18 @@
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import Graphe.Graphe;
+import java.util.LinkedList;
 
-public static class Djikstra {
+public class Djikstra {
 
-    public static Integer[][] make(Graphe g, int src) {
+    // g est le graphe où l'indice du tableau est l'id du noeud, et le contenu à
+    // l'indice i sont les arêtes sortantes de i de la forme
+    // [ {id de l'autre noeud}, {poids de l'arête} ]
+    // src est le noeud source
+    public static Integer[][] make(LinkedList<int[]>[] g, int src) {
+
         // initialisation
-        PriorityQueue<int[]> queue = PriorityQueue(new Comparator<int[]>() {
+        int size = g.length;
+        PriorityQueue<int[]> queue = new PriorityQueue<int[]>(new Comparator<int[]>() {
             public int compare(int[] i1, int[] i2) {
                 return i1[1] - i2[1];
             }
@@ -14,29 +20,25 @@ public static class Djikstra {
         Integer[] distance = new Integer[size];
         Integer[] pi = new Integer[size];
         boolean[] blank = new boolean[size];
+        for (int i = 0; i < size; i++) {
+            distance[i] = null;
+            pi[i] = null;
+            blank[i] = false;
+        }
 
         // contenu de l'algo
         distance[src] = 0;
-        pi[src] = NULL;
+        pi[src] = null;
         int[] element = { src, 0 };
-        int d;
         int s;
         int[] h;
-        if (g.list_adjacence_wv == NULL) {
-            if (matrix_wv != NULL)
-                g.transfer_matrix_list();
-            else
-                throw Exception("graphe non valué\n");
-        }
-        LinkedList<int[]>[] list = g.list_adjacence_wv;
         queue.add(element);
-        while ((h = queue.poll()) != NULL) {
+        while ((h = queue.poll()) != null) {
             s = h[0];
-            d = h[1];
             blank[s] = true;
-            for (int[] var : list) {
+            for (int[] var : g[s]) {
                 if (blank[var[0]] == false) {
-                    if (distance[var[0]] == NULL || distance[s] + var[1] < distance[var[0]]) {
+                    if (distance[var[0]] == null || distance[s] + var[1] < distance[var[0]]) {
                         distance[var[0]] = distance[s] + var[1];
                         pi[var[0]] = s;
                     }
