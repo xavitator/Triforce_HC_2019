@@ -23,19 +23,27 @@ public class Graphe {
     }
 
     public void add_value_matrix(int source, int dest, int value) {
+        if (matrix_wv == NULL)
+            throw new Exception("matrix with value doesn't exist\n");
         matrix_wv[source][dest] = value;
     }
 
     public void add_value_list(int source, int dest, int value) {
+        if (list_adjacence_wv == NULL)
+            throw new Exception("liste d'adjacence with value doesn't exist\n");
         int[] element = { dest, value };
         list_adjacence_wv[source].addLast(element);
     }
 
     public void add_node_matrix_nv(int source, int dest) {
+        if (matrix_nv == NULL)
+            throw new Exception("matrix with no value doesn't exist\n");
         matrix_nv[source][dest] = 1;
     }
 
     public void add_node_list_nv(int source, int dest) {
+        if (list_adjacence_nv == NULL)
+            throw new Exception("liste d'adjacence with no value doesn't exist\n");
         list_adjacence_nv[source].addLast(dest);
     }
 
