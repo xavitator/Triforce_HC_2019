@@ -1,10 +1,10 @@
-package Djikstra;
+package Dijkstra;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.LinkedList;
 
-public class Djikstra {
+public class Dijkstra {
 
     /**
      * @param g tableau de liste de tuple d'Integer (liste d'adjacence de [i,j] avec i = id du noeud suivant, j le poids de l'arête)
