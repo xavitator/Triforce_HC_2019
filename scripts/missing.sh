@@ -12,7 +12,7 @@ _END=$(tput sgr0 2> /dev/null || echo "")
 OK="${_GREEN}✔${_END}"
 KO="${_RED}✘${_END}"
 
-ALGOS="A_etoile Algo_Hongrois Arbre_intervalle Bellman_Ford BFS CFC Cycle_detect DFS Dinitz Djikstra Edmonds_Karp Floyd_Warshall Ford_Fulkerson Kruskal Prim Tas Tri_topo Union_find"
+ALGOS="A_etoile Algo_Hongrois Arbre_intervalle Bellman_Ford BFS CFC Cycle_detect DFS Dinitz Dijkstra Edmonds_Karp Floyd_Warshall Ford_Fulkerson Kruskal Prim Tas Tri_topo Union_find"
 LANGUAGES="C++ Java Python"
 
 printf "%-20s" ""
