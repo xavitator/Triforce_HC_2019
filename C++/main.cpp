@@ -1,15 +1,55 @@
 #include "libalgo.hpp"
 #include "DFS/DFS.hpp"
 #include "BFS/BFS.hpp"
+#include "Bellman_Ford/Bellman_Ford.hpp"
 
+void	test_bellman_ford(void);
 void	test_bfs(void);
 void	test_dfs(void);
 
 int		main()
 {
+	test_bellman_ford();
 	test_bfs();
 	test_dfs();
 	return (0);
+}
+
+void	test_bellman_ford(void)
+{
+	s_glaw<std::string>		*gla;
+
+	gla = new s_glaw<std::string>;
+	gla->li_vertices.insert("S");
+	gla->li_vertices.insert("A");
+	gla->li_vertices.insert("B");
+	gla->li_vertices.insert("C");
+	gla->li_vertices.insert("D");
+	gla->li_vertices.insert("E");
+	gla->li_edges_w["S"].insert(std::make_pair("E", 8));
+	gla->li_edges_w["S"].insert(std::make_pair("A", 10));
+	gla->li_edges_w["E"].insert(std::make_pair("D", 1));
+	gla->li_edges_w["D"].insert(std::make_pair("A", -4));
+	gla->li_edges_w["D"].insert(std::make_pair("C", -1));
+	gla->li_edges_w["A"].insert(std::make_pair("C", 2));
+	gla->li_edges_w["C"].insert(std::make_pair("B", -2));
+	gla->li_edges_w["B"].insert(std::make_pair("A", 1));
+
+	auto res = graph_bellman_ford(gla, std::string("S"));
+
+	std::cout << "=== Bellman Ford ===" << std::endl;
+	for (auto it = res->pi.begin(); it != res->pi.end(); ++it)
+	{
+		std::cout << "P(" << it->first << ") = " << it->second << std::endl;
+	}
+	std::cout << std::endl;
+	for (auto it = res->distance.begin(); it != res->distance.end(); ++it)
+	{
+		std::cout << "d(" << it->first << ") = " << it->second << std::endl;
+	}
+
+	delete res;
+	delete gla;
 }
 
 void	test_bfs(void)
