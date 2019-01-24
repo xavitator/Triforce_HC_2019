@@ -11,7 +11,7 @@ public class PL {
      * @param src id de la source
      * @return [ {tableau distance},{tableau parent id} ]
      */
-    public static Integer[][] make (LinkedList<Integer>[] g, int src){
+    public static Integer[][] PL (LinkedList<Integer>[] g, int src){
         int size = g.length;
         Integer[] pi = new Integer[size];
         Integer[] distance = new Integer[size];

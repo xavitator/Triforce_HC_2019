@@ -45,7 +45,13 @@ public class PP {
         }
     }
 
-    public static Integer[][] make_simple(LinkedList<Integer>[] g, int src){
+    /**
+     * PP
+     * @param g tableau de liste d'Integer (liste d'adjacence)
+     * @param src id de la source
+     * @return [ {tableau du temps de debut}, {tableau du temps de fin},{tableau parent id} ]
+     */
+    public static Integer[][] PP(LinkedList<Integer>[] g, int src){
         init_var(g.length);
         visited[src] = true;
         time++;
@@ -53,7 +59,7 @@ public class PP {
         for (Integer var : g[src]){
             if(visited[var] == false){
                 pi[var] = src;
-                make_simple(g, var);
+                PP(g, var);
             }
         }
         time++;
@@ -61,11 +67,16 @@ public class PP {
         return return_res_copy();
     }
 
-    public static Integer[][] make_complet(LinkedList<Integer>[] g){
+    /**
+     * PPC
+     * @param g tableau de liste d'Integer (liste d'adjacence)
+     * @return [ {tableau du temps de debut}, {tableau du temps de fin},{tableau parent id} ]
+     */
+    public static Integer[][] PPC(LinkedList<Integer>[] g){
         init_var(g.length);
         for(int i = 0; i < g.length; i++){
             if(visited[i] == false){
-                make_simple(g, i);
+                PP(g, i);
             }
         }
         return return_res_copy();

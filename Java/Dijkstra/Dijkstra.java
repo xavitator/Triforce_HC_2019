@@ -11,7 +11,7 @@ public class Dijkstra {
      * @param src noeud source
      * @return [ {tableau distance}, {tableau des parents id} ]
      */
-    public static Integer[][] make(LinkedList<int[]>[] g, int src) {
+    public static Integer[][] dijkstra(LinkedList<int[]>[] g, int src) {
 
         // initialisation
         int size = g.length;
