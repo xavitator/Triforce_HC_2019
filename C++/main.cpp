@@ -6,7 +6,9 @@
 #include "BFS/BFS.hpp"
 #include "Bellman_Ford/Bellman_Ford.hpp"
 #include "CFC/CFC.hpp"
+#include "Cycle_detect/Cycle_detect.hpp"
 
+void	test_cycle_detect(void);
 void	test_cfc(void);
 void	test_bellman_ford(void);
 void	test_bfs(void);
@@ -14,11 +16,42 @@ void	test_dfs(void);
 
 int		main()
 {
-	test_cfc();
-	test_bellman_ford();
-	test_bfs();
-	test_dfs();
+	test_cycle_detect();
+	// test_cfc();
+	// test_bellman_ford();
+	// test_bfs();
+	// test_dfs();
 	return (0);
+}
+
+void	test_cycle_detect(void)
+{
+	s_gla<int>			*gla;
+
+	gla = new s_gla<int>();
+	gla->li_vertices.insert(1);
+	gla->li_vertices.insert(2);
+	gla->li_vertices.insert(3);
+	gla->li_vertices.insert(4);
+	gla->li_vertices.insert(5);
+	gla->li_vertices.insert(6);
+	gla->li_vertices.insert(7);
+	gla->li_vertices.insert(8);
+	gla->li_edges[1].insert(2);
+	gla->li_edges[2].insert(3);
+	gla->li_edges[1].insert(3);
+	gla->li_edges[3].insert(4);
+	gla->li_edges[4].insert(5);
+	gla->li_edges[5].insert(7);
+	gla->li_edges[6].insert(7);
+	gla->li_edges[7].insert(8);
+
+	std::cout << "=== Cycle detection ===" << std::endl;
+	std::cout << graph_cycle_detect(gla) << std::endl;
+	gla->li_edges[8].insert(6);
+	std::cout << graph_cycle_detect(gla) << std::endl;
+
+	delete gla;
 }
 
 void	test_cfc(void)
