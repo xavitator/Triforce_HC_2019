@@ -11,6 +11,7 @@ public class WriteFile {
 
     /**
      * Constructeur de l'écrivain
+     * Stage 1
      * @param target le fichier dans lequel écrire
      */
     WriteFile (String target) {
@@ -27,6 +28,7 @@ public class WriteFile {
 
     /**
      * Fonction d'écriture
+     * Stage 2
      * @param content le contenu à écrire dans target
      */
     void write (String content) {
@@ -39,6 +41,7 @@ public class WriteFile {
 
     /**
      * Ferme les fichiers et le buffer
+     * Stage 3
      */
     void close() {
         try {
@@ -51,13 +54,6 @@ public class WriteFile {
         }
     }
 
-
-    public static void main(String[] args) {
-        WriteFile f = new WriteFile("test.txt");
-        String content = "Hello\n Bye !!!";
-        f.write(content);
-        f.close();
-    }
 
 
 }
