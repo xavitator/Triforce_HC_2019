@@ -8,16 +8,20 @@
 #include "CFC/CFC.hpp"
 #include "Cycle_detect/Cycle_detect.hpp"
 #include "Tri_topo/Tri_topo.hpp"
+#include "Tas/Tas.hpp"
 
 #define SIZE_GLA_LIST		5
 #define SIZE_GLAW_LIST		1
+#define SIZE_VEC_LIST		1
 
 struct s_gla<int>			*gla_list[SIZE_GLA_LIST] = {NULL};
 struct s_glaw<std::string>	*glaw_list[SIZE_GLAW_LIST] = {NULL};
+std::vector<int>			*vec_list[SIZE_VEC_LIST] = {NULL};
 
 void	init_globals_gla();
 void	end_globals_gla();
 
+void	test_tas(void);
 void	test_cycle_detect(void);
 void	test_cfc(void);
 void	test_bellman_ford(void);
@@ -29,7 +33,8 @@ int		main()
 {
 	init_globals_gla();
 
-	test_tri_topo();
+	test_tas();
+	// test_tri_topo();
 	// test_cycle_detect();
 	// test_cfc();
 	// test_bellman_ford();
@@ -38,6 +43,35 @@ int		main()
 
 	end_globals_gla();
 	return (0);
+}
+
+void	test_tas(void)
+{
+	std::cout << "=== Tas (less) ===" << std::endl;
+	std::cout << "Before heaping : " << std::endl;
+	for (int p : *vec_list[0]) std::cout << p << " "; std::cout << std::endl;
+	std::cout << "Heaping : " << std::endl;
+	heap_make(*vec_list[0]);
+	for (int p : *vec_list[0]) std::cout << p << " "; std::cout << std::endl;
+	std::cout << "Pushing 10 : " << std::endl;
+	heap_push(*vec_list[0], 10);
+	for (int p : *vec_list[0]) std::cout << p << " "; std::cout << std::endl;
+	std::cout << "Poping 10 : " << std::endl;
+	heap_pop(*vec_list[0]);
+	for (int p : *vec_list[0]) std::cout << p << " "; std::cout << std::endl;
+
+	std::cout << "=== Tas (greater) ===" << std::endl;
+	std::cout << "Before heaping : " << std::endl;
+	for (int p : *vec_list[0]) std::cout << p << " "; std::cout << std::endl;
+	std::cout << "Heaping : " << std::endl;
+	heap_rev_make(*vec_list[0]);
+	for (int p : *vec_list[0]) std::cout << p << " "; std::cout << std::endl;
+	std::cout << "Pushing 10 : " << std::endl;
+	heap_rev_push(*vec_list[0], 10);
+	for (int p : *vec_list[0]) std::cout << p << " "; std::cout << std::endl;
+	std::cout << "Poping 1 : " << std::endl;
+	heap_rev_pop(*vec_list[0]);
+	for (int p : *vec_list[0]) std::cout << p << " "; std::cout << std::endl;
 }
 
 void	test_tri_topo(void)
@@ -245,6 +279,8 @@ void	init_globals_gla()
 	glaw_list[0]->li_edges_w["A"].insert(std::make_pair("C", 2));
 	glaw_list[0]->li_edges_w["C"].insert(std::make_pair("B", -2));
 	glaw_list[0]->li_edges_w["B"].insert(std::make_pair("A", 1));
+
+	vec_list[0] = new std::vector<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 }
 
 void	end_globals_gla()
@@ -254,5 +290,8 @@ void	end_globals_gla()
 	}
 	for (size_t i = 0; i < SIZE_GLAW_LIST; i++) {
 		delete glaw_list[i];
+	}
+	for (size_t i = 0; i < SIZE_VEC_LIST; i++) {
+		delete vec_list[i];
 	}
 }
