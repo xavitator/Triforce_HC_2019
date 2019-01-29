@@ -2,10 +2,14 @@
 # define LIBALGO_HPP
 
 # include <iostream>
+
 # include <set>
 # include <map>
 # include <stack>
 # include <deque>
+# include <vector>
+
+# include <algorithm>
 # include <utility>
 # include <string>
 # include <limits>
