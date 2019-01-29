@@ -7,77 +7,68 @@
 #include "Bellman_Ford/Bellman_Ford.hpp"
 #include "CFC/CFC.hpp"
 #include "Cycle_detect/Cycle_detect.hpp"
+#include "Tri_topo/Tri_topo.hpp"
+
+#define SIZE_GLA_LIST		5
+#define SIZE_GLAW_LIST		1
+
+struct s_gla<int>			*gla_list[SIZE_GLA_LIST] = {NULL};
+struct s_glaw<std::string>	*glaw_list[SIZE_GLAW_LIST] = {NULL};
+
+void	init_globals_gla();
+void	end_globals_gla();
 
 void	test_cycle_detect(void);
 void	test_cfc(void);
 void	test_bellman_ford(void);
 void	test_bfs(void);
 void	test_dfs(void);
+void	test_tri_topo(void);
 
 int		main()
 {
-	test_cycle_detect();
+	init_globals_gla();
+
+	test_tri_topo();
+	// test_cycle_detect();
 	// test_cfc();
 	// test_bellman_ford();
 	// test_bfs();
 	// test_dfs();
+
+	end_globals_gla();
 	return (0);
+}
+
+void	test_tri_topo(void)
+{
+	s_gla<int>			*gla = gla_list[4];
+	auto				res = graph_tri_topo(gla);
+
+	std::cout << "=== Tri topo ===" << std::endl;
+	while (res->empty() == false)
+	{
+		std::cout << res->top() << " ";
+		res->pop();
+	}
+	std::cout << std::endl;
+
+	delete res;
 }
 
 void	test_cycle_detect(void)
 {
-	s_gla<int>			*gla;
-
-	gla = new s_gla<int>();
-	gla->li_vertices.insert(1);
-	gla->li_vertices.insert(2);
-	gla->li_vertices.insert(3);
-	gla->li_vertices.insert(4);
-	gla->li_vertices.insert(5);
-	gla->li_vertices.insert(6);
-	gla->li_vertices.insert(7);
-	gla->li_vertices.insert(8);
-	gla->li_edges[1].insert(2);
-	gla->li_edges[2].insert(3);
-	gla->li_edges[1].insert(3);
-	gla->li_edges[3].insert(4);
-	gla->li_edges[4].insert(5);
-	gla->li_edges[5].insert(7);
-	gla->li_edges[6].insert(7);
-	gla->li_edges[7].insert(8);
+	s_gla<int>			*gla = gla_list[0];
 
 	std::cout << "=== Cycle detection ===" << std::endl;
 	std::cout << graph_cycle_detect(gla) << std::endl;
 	gla->li_edges[8].insert(6);
 	std::cout << graph_cycle_detect(gla) << std::endl;
-
-	delete gla;
 }
 
 void	test_cfc(void)
 {
-	s_gla<int>			*gla;
-
-	gla = new s_gla<int>();
-	gla->li_vertices.insert(1);
-	gla->li_vertices.insert(2);
-	gla->li_vertices.insert(3);
-	gla->li_vertices.insert(4);
-	gla->li_vertices.insert(5);
-	gla->li_vertices.insert(6);
-	gla->li_vertices.insert(7);
-	gla->li_vertices.insert(8);
-	gla->li_edges[1].insert(2);
-	gla->li_edges[2].insert(1);
-	gla->li_edges[2].insert(3);
-	gla->li_edges[1].insert(3);
-	gla->li_edges[3].insert(4);
-	gla->li_edges[4].insert(3);
-	gla->li_edges[4].insert(5);
-	gla->li_edges[5].insert(7);
-	gla->li_edges[6].insert(7);
-	gla->li_edges[7].insert(8);
-	gla->li_edges[8].insert(6);
+	s_gla<int>			*gla = gla_list[1];
 
 	// print_gla(gla);
 
@@ -93,28 +84,11 @@ void	test_cfc(void)
 	}
 
 	delete res;
-	delete gla;
 }
 
 void	test_bellman_ford(void)
 {
-	s_glaw<std::string>		*gla;
-
-	gla = new s_glaw<std::string>;
-	gla->li_vertices.insert("S");
-	gla->li_vertices.insert("A");
-	gla->li_vertices.insert("B");
-	gla->li_vertices.insert("C");
-	gla->li_vertices.insert("D");
-	gla->li_vertices.insert("E");
-	gla->li_edges_w["S"].insert(std::make_pair("E", 8));
-	gla->li_edges_w["S"].insert(std::make_pair("A", 10));
-	gla->li_edges_w["E"].insert(std::make_pair("D", 1));
-	gla->li_edges_w["D"].insert(std::make_pair("A", -4));
-	gla->li_edges_w["D"].insert(std::make_pair("C", -1));
-	gla->li_edges_w["A"].insert(std::make_pair("C", 2));
-	gla->li_edges_w["C"].insert(std::make_pair("B", -2));
-	gla->li_edges_w["B"].insert(std::make_pair("A", 1));
+	s_glaw<std::string>		*gla = glaw_list[0];
 
 	auto res = graph_bellman_ford(gla, std::string("S"));
 
@@ -130,26 +104,11 @@ void	test_bellman_ford(void)
 	}
 
 	delete res;
-	delete gla;
 }
 
 void	test_bfs(void)
 {
-	s_gla<int>		*gla;
-
-	gla = new s_gla<int>();
-	gla->li_vertices.insert(1);
-	gla->li_vertices.insert(2);
-	gla->li_vertices.insert(3);
-	gla->li_vertices.insert(4);
-	gla->li_vertices.insert(5);
-	gla->li_vertices.insert(6);
-	gla->li_edges[1].insert(2);
-	gla->li_edges[2].insert(4);
-	gla->li_edges[2].insert(3);
-	gla->li_edges[3].insert(5);
-	gla->li_edges[4].insert(6);
-	gla->li_edges[5].insert(6);
+	s_gla<int>		*gla = gla_list[2];
 
 	auto res = graph_bfs(gla, 1);
 
@@ -165,24 +124,11 @@ void	test_bfs(void)
 	}
 
 	delete res;
-	delete gla;
 }
 
 void	test_dfs(void)
 {
-	s_gla<int>		*gla;
-
-	gla = new s_gla<int>();
-	gla->li_vertices.insert(1);
-	gla->li_vertices.insert(2);
-	gla->li_vertices.insert(3);
-	gla->li_vertices.insert(4);
-	gla->li_vertices.insert(5);
-	gla->li_edges[1].insert(3);
-	gla->li_edges[2].insert(3);
-	gla->li_edges[3].insert(4);
-	gla->li_edges[4].insert(1);
-	gla->li_edges[4].insert(2);
+	s_gla<int>		*gla = gla_list[3];
 
 	auto res = graph_dfs(gla);
 
@@ -203,5 +149,110 @@ void	test_dfs(void)
 	}
 
 	delete res;
-	delete gla;
+}
+
+void	init_globals_gla()
+{
+	gla_list[0] = new s_gla<int>();
+	gla_list[0]->li_vertices.insert(1);
+	gla_list[0]->li_vertices.insert(2);
+	gla_list[0]->li_vertices.insert(3);
+	gla_list[0]->li_vertices.insert(4);
+	gla_list[0]->li_vertices.insert(5);
+	gla_list[0]->li_vertices.insert(6);
+	gla_list[0]->li_vertices.insert(7);
+	gla_list[0]->li_vertices.insert(8);
+	gla_list[0]->li_edges[1].insert(2);
+	gla_list[0]->li_edges[2].insert(3);
+	gla_list[0]->li_edges[1].insert(3);
+	gla_list[0]->li_edges[3].insert(4);
+	gla_list[0]->li_edges[4].insert(5);
+	gla_list[0]->li_edges[5].insert(7);
+	gla_list[0]->li_edges[6].insert(7);
+	gla_list[0]->li_edges[7].insert(8);
+
+	gla_list[1] = new s_gla<int>();
+	gla_list[1]->li_vertices.insert(1);
+	gla_list[1]->li_vertices.insert(2);
+	gla_list[1]->li_vertices.insert(3);
+	gla_list[1]->li_vertices.insert(4);
+	gla_list[1]->li_vertices.insert(5);
+	gla_list[1]->li_vertices.insert(6);
+	gla_list[1]->li_vertices.insert(7);
+	gla_list[1]->li_vertices.insert(8);
+	gla_list[1]->li_edges[1].insert(2);
+	gla_list[1]->li_edges[2].insert(1);
+	gla_list[1]->li_edges[2].insert(3);
+	gla_list[1]->li_edges[1].insert(3);
+	gla_list[1]->li_edges[3].insert(4);
+	gla_list[1]->li_edges[4].insert(3);
+	gla_list[1]->li_edges[4].insert(5);
+	gla_list[1]->li_edges[5].insert(7);
+	gla_list[1]->li_edges[6].insert(7);
+	gla_list[1]->li_edges[7].insert(8);
+	gla_list[1]->li_edges[8].insert(6);
+
+	gla_list[2] = new s_gla<int>();
+	gla_list[2]->li_vertices.insert(1);
+	gla_list[2]->li_vertices.insert(2);
+	gla_list[2]->li_vertices.insert(3);
+	gla_list[2]->li_vertices.insert(4);
+	gla_list[2]->li_vertices.insert(5);
+	gla_list[2]->li_vertices.insert(6);
+	gla_list[2]->li_edges[1].insert(2);
+	gla_list[2]->li_edges[2].insert(4);
+	gla_list[2]->li_edges[2].insert(3);
+	gla_list[2]->li_edges[3].insert(5);
+	gla_list[2]->li_edges[4].insert(6);
+	gla_list[2]->li_edges[5].insert(6);
+
+	gla_list[3] = new s_gla<int>();
+	gla_list[3]->li_vertices.insert(1);
+	gla_list[3]->li_vertices.insert(2);
+	gla_list[3]->li_vertices.insert(3);
+	gla_list[3]->li_vertices.insert(4);
+	gla_list[3]->li_vertices.insert(5);
+	gla_list[3]->li_edges[1].insert(3);
+	gla_list[3]->li_edges[2].insert(3);
+	gla_list[3]->li_edges[3].insert(4);
+	gla_list[3]->li_edges[4].insert(1);
+	gla_list[3]->li_edges[4].insert(2);
+
+	gla_list[4] = new s_gla<int>();
+	gla_list[4]->li_vertices.insert(1);
+	gla_list[4]->li_vertices.insert(2);
+	gla_list[4]->li_vertices.insert(3);
+	gla_list[4]->li_vertices.insert(4);
+	gla_list[4]->li_vertices.insert(5);
+	gla_list[4]->li_edges[1].insert(2);
+	gla_list[4]->li_edges[1].insert(3);
+	gla_list[4]->li_edges[2].insert(4);
+	gla_list[4]->li_edges[3].insert(4);
+	gla_list[4]->li_edges[4].insert(5);
+
+	glaw_list[0] = new s_glaw<std::string>;
+	glaw_list[0]->li_vertices.insert("S");
+	glaw_list[0]->li_vertices.insert("A");
+	glaw_list[0]->li_vertices.insert("B");
+	glaw_list[0]->li_vertices.insert("C");
+	glaw_list[0]->li_vertices.insert("D");
+	glaw_list[0]->li_vertices.insert("E");
+	glaw_list[0]->li_edges_w["S"].insert(std::make_pair("E", 8));
+	glaw_list[0]->li_edges_w["S"].insert(std::make_pair("A", 10));
+	glaw_list[0]->li_edges_w["E"].insert(std::make_pair("D", 1));
+	glaw_list[0]->li_edges_w["D"].insert(std::make_pair("A", -4));
+	glaw_list[0]->li_edges_w["D"].insert(std::make_pair("C", -1));
+	glaw_list[0]->li_edges_w["A"].insert(std::make_pair("C", 2));
+	glaw_list[0]->li_edges_w["C"].insert(std::make_pair("B", -2));
+	glaw_list[0]->li_edges_w["B"].insert(std::make_pair("A", 1));
+}
+
+void	end_globals_gla()
+{
+	for (size_t i = 0; i < SIZE_GLA_LIST; i++) {
+		delete gla_list[i];
+	}
+	for (size_t i = 0; i < SIZE_GLAW_LIST; i++) {
+		delete glaw_list[i];
+	}
 }
