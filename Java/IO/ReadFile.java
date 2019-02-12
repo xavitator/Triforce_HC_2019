@@ -4,16 +4,15 @@ import java.util.Scanner;
 import java.util.regex.MatchResult;
 
 public class ReadFile {
-    Scanner sc;
+    static Interator<String> lignes = null;
 
     /**
      * Constructeur
      * @param src fichier à lire
      */
     ReadFile(String src) {
-        File f= new File(src);
         try {
-            sc= new Scanner(f);
+    		lignes = new BufferReader(new InputStreamReader(src)).lines.iterator();
         } catch (FileNotFoundException e) {
             System.out.println("Can't find file");
             System.exit(1);
@@ -25,9 +24,7 @@ public class ReadFile {
      * Modifier le type retour de la fonction
      */
     void readfile() {
-        String line = null
-        while(sc.hasNextLine()) {
-            line = sc.nextLine();
+        for(String line : lignes) {
             readline(line);
         }
         return;
