@@ -1,10 +1,11 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.regex.MatchResult;
 
 public class ReadFile {
-    static Interator<String> lignes = null;
+    static List<String> lignes = null;
 
     /**
      * Constructeur
@@ -12,9 +13,9 @@ public class ReadFile {
      */
     ReadFile(String src) {
         try {
-    		lignes = new BufferReader(new InputStreamReader(src)).lines.iterator();
-        } catch (FileNotFoundException e) {
-            System.out.println("Can't find file");
+    		lignes = Files.readAllLines(Paths.get(new File(src).getAbsolutePath()));
+        } catch (IOException e) {
+            System.out.println("Can't find file or read it");
             System.exit(1);
         }
     }
@@ -27,7 +28,6 @@ public class ReadFile {
         for(String line : lignes) {
             readline(line);
         }
-        return;
     }
 
     /**
