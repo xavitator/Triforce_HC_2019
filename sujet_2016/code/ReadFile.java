@@ -60,7 +60,6 @@ public class ReadFile {
         Warehouse [] intels = new Warehouse[n];
         for(int i = 0 ; i < n ; i++) {
             intels[i] = getWarehouseIntel(nbProduct);
-            i++;
         }
         return intels;
     }
