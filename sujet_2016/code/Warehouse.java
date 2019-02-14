@@ -11,4 +11,12 @@ class Warehouse {
 		this.pos = pt;
 		this.products = products;
 	}
+
+	boolean	getProductAndLoad(int id, int amount)
+	{
+		if (products[id] < amount)
+			return (false);
+		products[id] -= amount;
+		return (true);
+	}
 }
