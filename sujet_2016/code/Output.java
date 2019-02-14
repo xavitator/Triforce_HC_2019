@@ -3,7 +3,6 @@ import java.util.LinkedList;
 public class Output {
 
     static int score = 0;
-    static int turn = 1;
 
     static LinkedList<String> out = new LinkedList<>();
 
@@ -14,7 +13,7 @@ public class Output {
             case Unload: str = "U"; break;
             case Deliver:
                 if(Main.orders[dest].finished){
-                    score += ((Main.deadline - turn) * 100)/ Main.deadline;
+                    score += ((Main.deadline - Main.turnActu) * 100)/ Main.deadline;
                 }
                 str = "D";
                 break;
@@ -27,7 +26,6 @@ public class Output {
     static void addWaitInstruction (int id, int tour){
       String res = id + " W " + tour;
       out.addLast(res);
-      turn += 1;
     }
 
     static void writeResult (String file){
