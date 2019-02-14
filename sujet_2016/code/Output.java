@@ -2,6 +2,9 @@ import java.util.LinkedList;
 
 public class Output {
 
+    static int score = 0;
+    static int turn = 1;
+
     static LinkedList<String> out = new LinkedList<>();
 
     static void addInstruction (int id, Command cmd, int dest, int product, int number){
@@ -9,16 +12,23 @@ public class Output {
         switch (cmd){
             case Load:str = "L"; break;
             case Unload: str = "U"; break;
-            case Deliver:str = "D"; break;
+            case Deliver:
+                if(Main.orders[dest].finished){
+                    score += ((Main.deadline - turn) * 100)/ Main.deadline;
+                }
+                str = "D";
+                break;
             default: str = "";
         }
         String res = id + " " + str + " " + dest + " " + product + " " + number;
         out.addLast(res);
+        turn += 1;
     }
 
-    static void addWaitInstruction (int id, int turn){
-      String res = id + " W " + turn;
+    static void addWaitInstruction (int id, int tour){
+      String res = id + " W " + tour;
       out.addLast(res);
+      turn += 1;
     }
 
     static void writeResult (String file){
@@ -29,5 +39,6 @@ public class Output {
             f.write(str + "\n");
         }
         f.close();
+        System.out.println("Score = "+score + "\n");
     }
 }
