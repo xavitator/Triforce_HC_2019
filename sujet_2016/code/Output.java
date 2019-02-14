@@ -22,12 +22,12 @@ public class Output {
     }
 
     static void writeResult (String file){
-        WriteFile file = new WriteFile(file);
+        WriteFile f = new WriteFile(file);
         int nb = out.size();
-        file.write(nb+"\n");
+        f.write(nb+"\n");
         for(String str : out){
-            file.write(str + "\n");
+            f.write(str + "\n");
         }
-        file.close();
+        f.close();
     }
 }
