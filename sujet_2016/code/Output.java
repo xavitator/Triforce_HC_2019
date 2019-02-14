@@ -22,7 +22,6 @@ public class Output {
         }
         String res = id + " " + str + " " + dest + " " + product + " " + number;
         out.addLast(res);
-        turn += 1;
     }
 
     static void addWaitInstruction (int id, int tour){

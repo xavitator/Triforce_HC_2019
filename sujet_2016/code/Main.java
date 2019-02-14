@@ -9,6 +9,8 @@ class Main {
 	static Order []orders;
 	static Drone []drones;
 
+	static int turnActu = 0;
+
 	public static void main(String[] args) {
 		ReadFile.setup("../test.in");
 		String [] intel  = ReadFile.getintel();
@@ -18,20 +20,25 @@ class Main {
 		System.out.println("Column : " + col);
 		deadline = Integer.parseInt(intel[3]);
 		System.out.println("Deadline : " + deadline);
-		drones = new Drone[Integer.parseInt(intel[2])];
-		System.out.println("Drone 0 : " + drones[0]);
+		int nDrones = Integer.parseInt(intel[2]);
+		drones = new Drone[nDrones];
+		for (int i = 0; i < nDrones; ++i)
+			drones[i] = new Drone();
 		droneCapacity = Integer.parseInt(intel[4]);
 		System.out.println("Capacity : " + droneCapacity);
 		int nbProducts = ReadFile.getNbProduct();
 		products = ReadFile.getProductWeight();
 		warehouses = ReadFile.getWarehousesIntel(nbProducts);
 		orders = ReadFile.CustomersOrders();
+
+		runStupid();
+		Output.writeResult("out.txt");
 	}
 
 	public static void runStupid() {
 		int		idOrder = 0;
 
-		for (int turnActu = 0; turnActu < deadline; ++turnActu) {
+		for (turnActu = 0; turnActu < deadline; ++turnActu) {
 			if (idOrder >= orders.length)
 				break ;
 
