@@ -1,9 +1,6 @@
 import java.awt.*;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.MatchResult;
 
 public class ReadFile {
     static Iterator<String> lignes;
@@ -46,49 +43,48 @@ public class ReadFile {
         return Integer.parseInt(lignes.next());
     }
 
-    static int[] getWarehouseIntel(int nbProduct) {
-        int[] tmp = new int[2+nbProduct];
+    static Warehouse getWarehouseIntel(int nbProduct) {
+        Warehouse w = new Warehouse();
         String[] line = lignes.next().split(" ");
-        tmp[0] = Integer.parseInt(line[0]);
-        tmp[1] = Integer.parseInt(line[1]);
+        w.pos = new Point(Integer.parseInt(line[0]), Integer.parseInt(line[1]));
         line = lignes.next().split(" ");
+        w.products = new int[nbProduct];
         for(int i = 0 ; i  < line.length ; i++) {
-            tmp[i+2] = Integer.parseInt(line[i]);
+            w.products[i] = Integer.parseInt(line[i]);
         }
-        return tmp;
+        return w;
     }
 
-    static int[][] getWarehousesIntel(int nbProduct) {
+    static Warehouse[] getWarehousesIntel(int nbProduct) {
         int n = getNbWarehouses();
-        int [][] tab = new int[n][];
+        Warehouse [] intels = new Warehouse[n];
         for(int i = 0 ; i < n ; i++) {
-            tab[i] = getWarehouseIntel(nbProduct);
+            intels[i] = getWarehouseIntel(nbProduct);
             i++;
         }
-        return tab;
+        return intels;
     }
 
     static int nbCustomers() {
         return Integer.parseInt(lignes.next());
     }
 
-    static int[] CustomerOrder() {
+    static Order CustomerOrder() {
         String[] values = lignes.next().split(" ");
-        Point p = new Point(Integer.parseInt(values[0]),Integer.parseInt(values[1]));
+        Order o = new Order();
+        o.pos = new Point(Integer.parseInt(values[0]),Integer.parseInt(values[1]));
         int nbProducts = Integer.parseInt(lignes.next());
-        int [] customer = new int[2 + nbProducts];
-        customer[0] = p.x;
-        customer[1] = p.y;
+        o.products = new ArrayList<>();
         values = lignes.next().split(" ");
         for (int i = 0 ; i < nbProducts ; i++) {
-            customer[i+2] = Integer.parseInt(values[i]);
+           o.products.add(Integer.parseInt(values[i]));
         }
-        return customer;
+        return o;
     }
 
-    static  int[][] CustomersOrders() {
+    static  Order[] CustomersOrders() {
         int n = nbCustomers();
-        int[][] customers = new int[n][];
+        Order [] customers = new Order[n];
         for (int i = 0 ; i < n ; i++) {
             customers[i] = CustomerOrder();
         }

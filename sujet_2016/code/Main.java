@@ -17,5 +17,9 @@ class Main {
 		deadline = Integer.parseInt(intel[3]);
 		drones = new Drone[Integer.parseInt(intel[2])];
 		droneCapacity = Integer.parseInt(intel[4]);
+		int nbProducts = ReadFile.getNbProduct();
+		products = ReadFile.getProductWeight();
+		warehouses = ReadFile.getWarehousesIntel(nbProducts);
+		orders = ReadFile.CustomersOrders();
 	}
 }
