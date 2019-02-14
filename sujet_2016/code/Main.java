@@ -72,6 +72,7 @@ class Main {
 				drone.timeout = nextTimeOut;
 				orderactu.finished = true;
 				idOrder++;
+				Output.updateScore(nextTimeOut);
 				if (idOrder >= orders.length)
 					break ;
 			}
