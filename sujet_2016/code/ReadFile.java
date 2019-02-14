@@ -1,5 +1,3 @@
-package code;
-
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
@@ -14,10 +12,11 @@ public class ReadFile {
      * Constructeur
      * @param src fichier à lire
      */
-    ReadFile(String src) {
+
+    static void setup(String src) {
         try {
-        lignes = (new BufferedReader(new InputStreamReader(
-                new FileInputStream(src)
+            lignes = (new BufferedReader(new InputStreamReader(
+                    new FileInputStream(src)
             ))).lines().iterator();
         } catch(Exception e) {
             e.printStackTrace();
@@ -25,16 +24,16 @@ public class ReadFile {
         }
     }
 
-    String[] getintel() {
+    static String[] getintel() {
         String[] mapintel = lignes.next().split(" ");
         return mapintel;
     }
 
-    int getNbProduct() {
+    static int getNbProduct() {
         return Integer.parseInt(lignes.next());
     }
 
-    int[] getProductWeight() {
+    static int[] getProductWeight() {
         String[] products = lignes.next().split(" ");
         int[] weight = new int[products.length];
         for (int i = 0 ; i < products.length ; i++) {
@@ -43,11 +42,11 @@ public class ReadFile {
         return weight;
     }
 
-    int getNbWarehouses() {
+    static int getNbWarehouses() {
         return Integer.parseInt(lignes.next());
     }
 
-    int[] getWarehouseIntel(int nbProduct) {
+    static int[] getWarehouseIntel(int nbProduct) {
         int[] tmp = new int[2+nbProduct];
         String[] line = lignes.next().split(" ");
         tmp[0] = Integer.parseInt(line[0]);
@@ -59,7 +58,7 @@ public class ReadFile {
         return tmp;
     }
 
-    int[][] getWarehousesIntel(int nbProduct) {
+    static int[][] getWarehousesIntel(int nbProduct) {
         int n = getNbWarehouses();
         int [][] tab = new int[n][];
         for(int i = 0 ; i < n ; i++) {
@@ -69,11 +68,11 @@ public class ReadFile {
         return tab;
     }
 
-    int nbCustomers() {
+    static int nbCustomers() {
         return Integer.parseInt(lignes.next());
     }
 
-    int[] CustomerOrder() {
+    static int[] CustomerOrder() {
         String[] values = lignes.next().split(" ");
         Point p = new Point(Integer.parseInt(values[0]),Integer.parseInt(values[1]));
         int nbProducts = Integer.parseInt(lignes.next());
@@ -87,7 +86,7 @@ public class ReadFile {
         return customer;
     }
 
-    int[][] CustomersOrders() {
+    static  int[][] CustomersOrders() {
         int n = nbCustomers();
         int[][] customers = new int[n][];
         for (int i = 0 ; i < n ; i++) {
