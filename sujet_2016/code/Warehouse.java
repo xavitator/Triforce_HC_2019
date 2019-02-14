@@ -1,6 +1,7 @@
+import java.awt.*;
 
 class Warehouse {
-	Point	pos;
+	Point pos;
 	int		[]products;
 
 	Warehouse(Point pt, int []products)

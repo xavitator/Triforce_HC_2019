@@ -4,8 +4,10 @@
 // 	Livraison,
 // }
 
+import java.awt.*;
+
 class Drone {
-	Point		pos;
+	Point pos;
 	int			[]products;
 	int			timeout;
 	// DroneType	type;
