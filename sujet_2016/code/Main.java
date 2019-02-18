@@ -1,18 +1,18 @@
 
 class Main {
-	static int row = 0;
-	static int col = 0;
-	static int deadline = 0;
-	static int droneCapacity = 0;
-	static int []products;
-	static Warehouse []warehouses;
-	static Order []orders;
-	static Drone []drones;
+	static int row = 0; // nb de colonnes de la surface
+	static int col = 0; // nb de lignes de la surface
+	static int deadline = 0; // nb max de tours
+	static int droneCapacity = 0; // capacité de chaque drone
+	static int []products; // poids des différents objets
+	static Warehouse []warehouses; // tableau des entrepots
+	static Order []orders; // tableau des clients
+	static Drone []drones; // tableau des drones
 
 	static int turnActu = 0;
 
 	public static void main(String[] args) {
-		ReadFile.setup("../test.in");
+		ReadFile.setup("../"+args[0]); // read du fichier
 		String [] intel  = ReadFile.getintel();
 		row = Integer.parseInt(intel[0]);
 		col = Integer.parseInt(intel[1]);
@@ -31,8 +31,8 @@ class Main {
 		warehouses = ReadFile.getWarehousesIntel(nbProducts);
 		orders = ReadFile.CustomersOrders();
 
-		runStupid();
-		Output.writeResult("out.txt");
+		runStupid(); // algo de base
+		Output.writeResult("../out.txt");// fichier de sortie
 	}
 
 	public static void runStupid() {

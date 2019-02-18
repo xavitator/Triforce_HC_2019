@@ -6,11 +6,14 @@
 
 import java.awt.*;
 
+/**
+ * Classe correspondant à un drone
+ */
 class Drone {
-	Point pos;
-	// int			[]products;
-	int			timeout;
-	// DroneType	type;
+	Point pos; // position du drone
+	// int			[]products; // quantité de chaque produit que contient le drone
+	int			timeout; // timeout du drone
+	// DroneType	type; // type du drone
 
 	Drone(/*, DroneType type */)
 	{
