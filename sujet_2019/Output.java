@@ -1,10 +1,37 @@
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Output {
 
     static int score = 0;
 
     static LinkedList<String> out = new LinkedList<>();
+
+    static List<String> privateFrom(List<String> l1, List<String> l2) {
+        List<String> res = new LinkedList<>();
+        for (String s : l1) {
+            if (!l2.contains(s))
+                res.add(s);
+        }
+        return res;
+    }
+
+
+    static int getScore(List<Picture> list) {
+        int res = 0;
+        for (int i = 1 ; i < list.size(); i++) {
+            List<String> intersect = list.get(i).tags.stream()
+                    .filter(list.get(i-1).tags::contains)
+                    .collect(Collectors.toList());
+            List<String> t1 = privateFrom(list.get(i).tags,list.get(i-1).tags);
+            List<String> t2 = privateFrom(list.get(i-1).tags,list.get(i).tags);
+            res += Math.min(Math.min(t1.size(), t2.size()), intersect.size());
+        }
+        return res;
+
+    }
+
 
     static String getOutput(LinkedList<Picture> pic) {
         String str = Integer.toString(pic.size());
