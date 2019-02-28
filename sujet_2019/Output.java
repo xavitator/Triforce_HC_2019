@@ -38,9 +38,10 @@ public class Output {
         for (Picture p : pic) {
             str += "\n";
             for (int i = 0 ; i < p.id.length ; i++) {
-                str += p.id[i] + " ";
                 if (i == p.id.length-1)
                     str += p.id[i];
+                else
+                    str += p.id[i] + " ";
             }
         }
         return str;
