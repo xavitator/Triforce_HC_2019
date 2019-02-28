@@ -40,12 +40,30 @@ public class Algo {
             pict.addLast(el);
             return true;
         }
+
+        int rank_to_insert = -1;
+        int score_to_beat = 0;
+
         for (int i = 0; i < pict.size() - 1; i++) {
-            if(haveOneCommun(pict.get(i), pict.get(i+1), el)){
-                pict.add(i+1, el);
-                return true;
+            Picture p = pict.get(i);
+            Picture q = pict.get(i + 1);
+            if(haveOneCommun(p, q, el)){
+                int actu = 0;
+                actu -= Output.scoreLiaison(p, q);
+                actu += Output.scoreLiaison(p, el);
+                actu += Output.scoreLiaison(el, q);
+                if (actu > score_to_beat) {
+                    rank_to_insert = i + 1;
+                    score_to_beat = actu;
+                }
             }
         }
+
+        if (rank_to_insert != -1) {
+            pict.add(rank_to_insert, el);
+            return (true);
+        }
+
         if(communOne(pict.getFirst(), el)){
             pict.addFirst(el);
             return true;
@@ -57,7 +75,7 @@ public class Algo {
         return false;
     }
 
-    static final int MAX_TURN = 2;
+    static final int MAX_TURN = 1;
 
     static LinkedList<Picture> startAlgo(LinkedList<Picture> pict){
         int turn = MAX_TURN;
