@@ -17,16 +17,20 @@ public class Output {
         return res;
     }
 
+    static int scoreLiaison(Picture p, Picture q) {
+        List<String> intersect = q.tags.stream()
+                    .filter(p.tags::contains)
+                    .collect(Collectors.toList());
+        List<String> t1 = privateFrom(q.tags,p.tags);
+        List<String> t2 = privateFrom(p.tags,q.tags);
+        return (Math.min(Math.min(t1.size(), t2.size()), intersect.size()));
+    }
+
 
     static int getScore(List<Picture> list) {
         int res = 0;
         for (int i = 1 ; i < list.size(); i++) {
-            List<String> intersect = list.get(i).tags.stream()
-                    .filter(list.get(i-1).tags::contains)
-                    .collect(Collectors.toList());
-            List<String> t1 = privateFrom(list.get(i).tags,list.get(i-1).tags);
-            List<String> t2 = privateFrom(list.get(i-1).tags,list.get(i).tags);
-            res += Math.min(Math.min(t1.size(), t2.size()), intersect.size());
+            res += scoreLiaison(list.get(i - 1), list.get(i));
         }
         return res;
 
