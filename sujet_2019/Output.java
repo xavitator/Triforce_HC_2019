@@ -56,7 +56,8 @@ public class Output {
     static void writeResult (String file, LinkedList<Picture> pic){
         WriteFile f = new WriteFile(file);
         String content = getOutput(pic);
-        System.out.println(content);
+        score = getScore(pic);
+        //System.out.println(content);
         f.write(content);
         f.close();
         System.out.println("Score = "+score + "\n");

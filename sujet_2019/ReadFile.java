@@ -38,7 +38,7 @@ public class ReadFile {
             res[i] = new Photo(i);
             res[i].vertical = lines[0].equals("V");
             res[i].tags = getTags(lines);
-            System.out.print("Debug : " + res[i] + "\n");
+            //System.out.print("Debug : " + res[i] + "\n");
         }
         return res;
     }
