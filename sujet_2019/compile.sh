@@ -1,4 +1,4 @@
-rm -rf *.class inputs/*.out
+rm -rf *.class inputs/*.sc
 javac *java
 
 for file in inputs/*; do
