@@ -82,10 +82,14 @@ public class Algo {
             pict.addLast(new Picture(el));
         }
         for (int i = 0; i < separeted[1].size() - 1; i+=2) {
-            pict.addLast(new Picture(content[i], content[i+1]));
+            pict.addLast(new Picture(separeted[1].get(i), separeted[1].get(i+1)));
         }
         Collections.sort(pict, (Picture a, Picture b) -> b.tags.size() - a.tags.size());
-        return startAlgo(pict);
+        LinkedList<Picture> res = startAlgo(pict);
+        for (Picture el : res){
+            System.out.println(el);
+        }
+        return res;
 
     }
 
