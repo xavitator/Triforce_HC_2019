@@ -57,21 +57,21 @@ public class Algo {
         return false;
     }
 
+    static final int MAX_TURN = 2;
+
     static LinkedList<Picture> startAlgo(LinkedList<Picture> pict){
-        boolean all = false;
+        int turn = MAX_TURN;
         LinkedList<Picture> res = new LinkedList<>();
         LinkedList<Picture> tmp = new LinkedList<>();
-        while(all == false){
-            all =true;
+        while(turn != 0){
             for (Picture el : pict){
                 if(! isAdded(res, el)){
                     tmp.addLast(el);
                 }
-                else all = false;
             }
             pict = tmp;
             tmp = new LinkedList<>();
-            //all = true;
+            turn --;
         }
         return res;
     }
