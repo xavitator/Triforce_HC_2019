@@ -1,5 +1,11 @@
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.HashSet;
 
 public class Algo {
 
@@ -94,6 +100,41 @@ public class Algo {
         return res;
     }
 
+    static void simplify(LinkedList<Picture> pict) {
+        HashMap<String, Integer> numbers = new HashMap<>();
+
+        for (Picture p : pict) {
+            for (String st : p.tags) {
+                numbers.put(st, 0);
+            }
+        }
+
+        for (Picture p : pict) {
+            for (String st : p.tags) {
+                numbers.put(st, numbers.get(st) + 1);
+            }
+        }
+
+        Set<String> single_tags = new TreeSet();
+
+        for (String key : numbers.keySet()) {
+            int value = numbers.get(key);
+            if (value == 1) {
+                single_tags.add(key);
+            }
+        }
+        
+        for (Picture p : pict) {
+            for (int i = 0; i < p.tags.size(); i++) {
+                if (single_tags.contains(p.tags.get(i))) {
+                    p.tags.remove(i);
+                    i--;
+                    p.additionnal_point++;
+                }
+            }
+        }
+    }
+
      static LinkedList<Picture> startStupid(Photo[] content) {
         LinkedList<Photo>[] separeted = separer(content);
         LinkedList<Picture> pict = new LinkedList<>();
@@ -103,6 +144,11 @@ public class Algo {
         for (int i = 0; i < separeted[1].size() - 1; i+=2) {
             pict.addLast(new Picture(separeted[1].get(i), separeted[1].get(i+1)));
         }
+
+        System.out.println(pict);
+        simplify(pict);
+        System.out.println(pict);
+
         Collections.sort(pict, (Picture a, Picture b) -> b.tags.size() - a.tags.size());
         LinkedList<Picture> res = startAlgo(pict);
 
