@@ -71,6 +71,7 @@ public class Algo {
             }
             pict = tmp;
             tmp = new LinkedList<>();
+            //all = true;
         }
         return res;
     }
@@ -86,9 +87,7 @@ public class Algo {
         }
         Collections.sort(pict, (Picture a, Picture b) -> b.tags.size() - a.tags.size());
         LinkedList<Picture> res = startAlgo(pict);
-        for (Picture el : res){
-            System.out.println(el);
-        }
+
         return res;
 
     }

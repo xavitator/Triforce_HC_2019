@@ -24,7 +24,7 @@ public class Picture {
     }
 
     public Picture(Photo v1, Photo v2) {
-        System.out.println(v1.id + " " + v2.id);
+        //System.out.println(v1.id + " " + v2.id);
         id = new int[2];
         id[0] = v1.id;
         id[1] = v2.id;
