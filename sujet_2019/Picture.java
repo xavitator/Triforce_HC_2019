@@ -6,6 +6,7 @@ public class Picture {
 
     int [] id;
     List<String> tags;
+    int additionnal_point;
 
 
     static List<String> merge_list (List<String> l1, List<String> l2){
@@ -21,6 +22,7 @@ public class Picture {
         id = new int[1];
         id[0] = h.id;
         tags = h.tags;
+        additionnal_point = 0;
     }
 
     public Picture(Photo v1, Photo v2) {
@@ -31,6 +33,7 @@ public class Picture {
         tags = new LinkedList<>();
         tags.addAll(v1.tags);
         tags = merge_list(tags, v2.tags);
+        additionnal_point = 0;
     }
 
     @Override
@@ -38,6 +41,7 @@ public class Picture {
         return "Picture{" +
                        "id=" + Arrays.toString(id) +
                        ", tags=" + tags +
+                       ", add point=" + additionnal_point + 
                        '}';
     }
 }

@@ -23,7 +23,14 @@ public class Output {
                     .collect(Collectors.toList());
         List<String> t1 = privateFrom(q.tags,p.tags);
         List<String> t2 = privateFrom(p.tags,q.tags);
-        return (Math.min(Math.min(t1.size(), t2.size()), intersect.size()));
+
+        int i1 = t1.size() + p.additionnal_point;
+        int i2 = t2.size() + q.additionnal_point;
+
+        System.out.println(i1);
+        System.out.println(i2);
+
+        return (Math.min(Math.min(i1, i2), intersect.size()));
     }
 
 
